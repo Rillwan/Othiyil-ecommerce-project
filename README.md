@@ -1,4 +1,6 @@
-# MERN E-Commerce Project
+# Othiyil - E-Commerce Project
+
+Domain: https://www.othiyil.com/
 
 A full-stack MERN application with:
 
@@ -106,6 +108,7 @@ npm start
 PORT=8000
 MONGO_URI=your_mongo_connection_string
 JWT_SECRET=your_secret_key
+MONGO_STORAGE_NAME=your_mongo_storage_name
 ```
 
 ---
@@ -169,8 +172,9 @@ POST /api/orders
 ## 👨‍💻 Author
 
 **Your Name**  
+Rillwan.tech
 Full-stack MERN Developer  
-Portfolio: https://your-website.com
+Portfolio: https://rillwantech.vercel.app/
 
 ---
 
