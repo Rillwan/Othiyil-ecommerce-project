@@ -1,13 +1,20 @@
 import fs from "fs";
 import sharp from "sharp";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const ImgFilePath = path.join(__dirname, "../../../uploads/images/");
+const VideoFilePath = path.join(__dirname, "../../../uploads/videos/");
 
 // GET IMAGE HIGH QUALITY
 export const GetImgHighQualityController = async (req, res) => {
   try {
     if (req.params.id) {
       // const imageFiles = fs.readdirSync("images/"); //read folder files
-      const img = await fs.readFileSync("uploads/images/" + req.params.id); // read file by image-id
+      const img = await fs.readFileSync(path.join(ImgFilePath, req.params.id)); // read file by image-id
       // console.log(imageFiles);
       res.set("Content-Type", "image/jpg"); //file type set
       res.status(200).send(img); //send image
@@ -26,7 +33,7 @@ export const GetImgPixelQualityController = async (req, res) => {
   try {
     if (req?.params?.px && req?.params?.id) {
       // Resize the image
-      const img = await fs.readFileSync("uploads/images/" + req.params.id);
+      const img = await fs.readFileSync(path.join(ImgFilePath, req.params.id)); // read file by image-id
       const resizedImageBuffer = await sharp(Buffer.from(img, "base64"))
         .resize(Number(req.params.px)) // Adjust dimensions as needed (pixel value)
         .toBuffer();
@@ -54,7 +61,7 @@ export const GetVideoByQualityController = async (req, res) => {
     if (size && filename) {
       /// Construct absolute path to video
       const videoPath = path.join(
-        "uploads/videos",
+        VideoFilePath,
         filename
       );
       // Check if file exists

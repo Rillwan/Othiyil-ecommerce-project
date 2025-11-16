@@ -3,15 +3,28 @@ import path from "path";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import fs from "fs";
 
 // Fix __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
+
+// Uploads root directory
+const UPLOAD_ROOT = path.join(__dirname, "../../../", "uploads");
+
+// Auto-create folders if they don't exist
+function EnsureFolder(folderPath) {
+  if (!fs.existsSync(folderPath)) {
+    fs.mkdirSync(folderPath, { recursive: true });
+  }
+}
 
 // image Storage config
 const imgStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/images/"); // save in uploads folder
+    const folder = path.join(UPLOAD_ROOT, "images"); // save in uploads/images folder
+    EnsureFolder(folder); // ensure the folder exists
+    cb(null, folder); // save in uploads folder
   },
   filename: (req, file, cb) => {
     const uniqueName =
@@ -26,7 +39,9 @@ const imgStorage = multer.diskStorage({
 // video Storage config
 const videoStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/videos/"); // save in uploads folder
+    const folder = path.join(UPLOAD_ROOT, "videos"); // save in uploads/videos folder
+    EnsureFolder(folder); // ensure the folder exists
+    cb(null, folder); // save in uploads folder
   },
   filename: (req, file, cb) => {
     const uniqueName =
@@ -84,9 +99,7 @@ export const UploadVideo = multer({
 // DELETE UPLOADED FILE ERROR HANDLER
 // Set Images Folder Path
 const ImageDirectory = () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const uploadDirectoryPath = path.join(__dirname, "../uploads/images"); // Directory where files are uploaded to server
+  const uploadDirectoryPath = path.join(UPLOAD_ROOT, "images"); // Directory where files are uploaded to server
   return uploadDirectoryPath;
 };
 export const FindImageUploadDirectory = (filename) => {
