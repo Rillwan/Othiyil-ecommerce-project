@@ -71,13 +71,14 @@ const EditProduct = () => {
     }
 
     // remove image
-    // const handleSetImageRemove = (e, index) => {
-    //     // e.preventDefault();
-    //     // setImages([
-    //     //     ...images.slice(0, index),
-    //     //     ...images.slice(index + 1, images.length)
-    //     // ]);
-    // }
+    const handleSetImageRemove = (e, index) => {
+        e.preventDefault();
+        return toast.error("Image removal is disabled in edit mode.");
+        // setImages([
+        //     ...images.slice(0, index),
+        //     ...images.slice(index + 1, images.length)
+        // ]);
+    }
 
 
 
@@ -100,8 +101,8 @@ const EditProduct = () => {
                                         ProductDetails?.images?.map((data, i) => (
                                             <div className="w-[120px] bg-gray-200 rounded-xl p-2" key={i}>
                                                 <img className='rounded-lg aspect-square object-cover object-center w-full' src={`${ApiURL}/image/100/${data}`} alt="" />
-                                                <button className='text-center bg-red-200 text-red-500 w-full py-1 mt-2 rounded-lg'
-                                                // onClick={(e) => handleSetImageRemove(e, i)}
+                                                <button className='text-center bg-red-200 text-red-500 w-full py-1 mt-2 rounded-lg' type="button"
+                                                onClick={(e) => handleSetImageRemove(e, i)}
                                                 >Remove</button>
                                             </div>
                                         ))

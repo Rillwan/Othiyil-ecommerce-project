@@ -3,6 +3,7 @@ import { AboutData, HomeData } from './../Home/HomeData';
 import Counter from '../../../components/Counter/Counter';
 import { motion } from 'framer-motion';
 import PartnerIMg from '../../../assets/images/partner.jpg'
+import ScrollingCard from "../../../components/Cards/ScrollingCard";
 
 const About = () => {
     return (
@@ -53,47 +54,8 @@ const About = () => {
                                 </motion.p>
                             </div>
                         </div>
-                        <div className="flex gap-5">
-                            <motion.div className="pt-20"
-                                animate={{
-                                    width: ["80%", "20%", "80%"], // opposite of first box
-                                }}
-                                transition={{
-                                    duration: 15,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                }}
-                            >
-                                <div className="w-full h-[1px] bg-black/50 mb-3"></div>
-                                <motion.img
-                                    initial={{ y: -80, opacity: 0 }}
-                                    whileInView={{
-                                        y: 0,
-                                        opacity: 1,
-                                        transition: { delay: 0.2, duration: 0.6, ease: 'easeIn' }
-                                    }}
-                                    className="h-full object-cover min-h-[300px]" src={AboutData?.banner1} alt="" />
-                            </motion.div>
-                            <motion.div className="pb-20"
-                                animate={{
-                                    width: ["20%", "80%", "20%"], // opposite of first box
-                                }}
-                                transition={{
-                                    duration: 15,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                }}
-                            >
-                                <motion.img
-                                    initial={{ y: +80, opacity: 0 }}
-                                    whileInView={{
-                                        y: 0,
-                                        opacity: 1,
-                                        transition: { delay: 0.2, duration: 0.6, ease: 'easeIn' }
-                                    }}
-                                    className="h-full object-center object-cover" src={AboutData?.banner2} alt="" />
-                                <div className="w-full h-[1px] bg-black/50 mt-3"></div>
-                            </motion.div>
+                        <div className="">
+                            <ScrollingCard Images={AboutData?.images} />
                         </div>
                     </div>
                 </div>

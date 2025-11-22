@@ -56,6 +56,7 @@ export const HomeData = {
 };
 
 export const AboutData = {
+  images: [AboutImg1, AboutImg2],
   banner1: AboutImg1,
   banner2: AboutImg2,
 };

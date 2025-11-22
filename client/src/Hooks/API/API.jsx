@@ -1,4 +1,4 @@
 
-let ApiURL = "http://localhost:8000/api"
+let ApiURL = "/api"
 
 export default ApiURL

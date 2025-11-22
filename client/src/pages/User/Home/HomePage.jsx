@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import Counter from "../../../components/Counter/Counter";
 import './Home.css'
 import ProductCard from "../../../components/Cards/ProductCard";
+import ScrollingCard from "../../../components/Cards/ScrollingCard";
 
 const HomePage = () => {
     const [activeCategory, setActiveCategory] = useState([]);
@@ -39,7 +40,7 @@ const HomePage = () => {
                 <div className="">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-wrap">
                         <div className="flex flex-col gap-2 cursor-pointer">
-                            <Link className="bg-cover relative bg-center h-[280px] lg:h-[350px]  transition-all"
+                            <Link className="bg-cover relative bg-center h-[400px] lg:h-[450px]  transition-all"
                                 to={`/category/${videos[0]?.slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
@@ -68,7 +69,7 @@ const HomePage = () => {
                                     </motion.div>
                                 </div>
                             </Link>
-                            <Link className="bg-cover relative bg-center h-[300px] lg:h-[450px]"
+                            <Link className="bg-cover relative bg-center h-[400px] lg:h-[600px]"
                                 to={`/category/${videos[2]?.slug}`}
                             >
                                 <div
@@ -100,12 +101,12 @@ const HomePage = () => {
                             </Link>
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Link className="bg-cover relative bg-center h-[300px] lg:h-[450px]"
+                            <Link className="bg-cover relative bg-center h-[400px] lg:h-[600px]"
                                 to={`/category/${videos[1]?.slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
-                                    src={`${videos[1]?.video && (`${ApiURL}/image/video/:100/${videos[1]?.video}`)}`}
+                                        src={`${videos[1]?.video && (`${ApiURL}/image/video/:100/${videos[1]?.video}`)}`}
                                         // controls
                                         autoPlay
                                         muted
@@ -129,7 +130,7 @@ const HomePage = () => {
                                     </motion.div>
                                 </div>
                             </Link>
-                            <Link className="bg-cover relative bg-center h-[280px] lg:h-[350px] "
+                            <Link className="bg-cover relative bg-center h-[400px] lg:h-[450px] "
                                 to={`/category/${videos[4]?.slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
@@ -203,45 +204,8 @@ const HomePage = () => {
                                 </motion.div>
                             </Link>
                         </div>
-                        <div className="flex gap-5">
-                            <motion.div className="pt-20"
-                                animate={{
-                                    width: ["80%", "20%", "80%"], // opposite of first box
-                                }}
-                                transition={{
-                                    duration: 15,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                }}
-                            >
-                                <div className="w-full h-[1px] bg-black/50 mb-3"></div> 
-                                <motion.img
-                                    initial={{ y: -80 }}
-                                    whileInView={{
-                                        y: 0,
-                                        transition: { delay: 0.1, duration: 0.4, ease: 'easeIn' }
-                                    }}
-                                    className="h-full object-cover min-h-[300px]" src={AboutData?.banner1} alt="" />
-                            </motion.div>
-                            <motion.div className="pb-20"
-                                animate={{
-                                    width: ["20%", "80%", "20%"], // opposite of first box
-                                }}
-                                transition={{
-                                    duration: 15, 
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                }}
-                            >
-                                <motion.img
-                                    initial={{ y: +80 }}
-                                    whileInView={{
-                                        y: 0,
-                                        transition: { delay: 0.1, duration: 0.4, ease: 'easeIn' }
-                                    }}
-                                    className="h-full object-center object-cover" src={AboutData?.banner2} alt="" />
-                                    <div className="w-full h-[1px] bg-black/50 mt-3"></div> 
-                            </motion.div>
+                        <div className="">
+                            <ScrollingCard Images={AboutData?.images} />
                         </div>
                     </div>
                 </div>
