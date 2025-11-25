@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, "./client/dist")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 app.disable("etag"); //  Disable ETag 
 
@@ -66,7 +66,7 @@ const router = express.Router();
 
 // All other routes serve React's index.html
 app.all("/*splat", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
  
 const PORT = process.env.PORT || 8000;
