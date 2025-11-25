@@ -106,6 +106,7 @@ npm start
 
 ```
 PORT=8000
+DEV_MODE=development
 MONGO_URI=your_mongo_connection_string
 JWT_SECRET=your_secret_key
 MONGO_STORAGE_NAME=your_mongo_storage_name
@@ -152,8 +153,8 @@ POST /api/orders
 
 ```json
 "scripts": {
-  "start": "node index.js",
-  "dev": "nodemon index.js"
+  "start": "node server.js",
+  "dev": "nodemon server.js"
 }
 ```
 
