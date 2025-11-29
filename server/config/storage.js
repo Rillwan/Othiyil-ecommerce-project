@@ -89,11 +89,11 @@ export const Upload = multer({
   fileFilter: imageFilter,
 });
 
-// Max file size = 100MB (100 * 1024 * 1024 bytes)
+// Max file size = 50MB (100 * 1024 * 1024 bytes)
 export const UploadVideo = multer({
   storage: videoStorage,
   fileFilter: videoFilter,
-  limits: { fileSize: 100 * 1024 * 1024 },
+  limits: { fileSize: 50 * 1024 * 1024 },
 });
 
 // DELETE UPLOADED FILE ERROR HANDLER

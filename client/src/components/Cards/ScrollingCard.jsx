@@ -13,11 +13,11 @@ const ScrollingCard = ({ Images }) => {
     return (
         <motion.div
             initial={{
-                y: 150,
+                x: 150,
                 opacity: 0,
             }}
             whileInView={{
-                y: 0,
+                x: 0,
                 opacity: 1,
                 transition: {
                     delay: 0.2,

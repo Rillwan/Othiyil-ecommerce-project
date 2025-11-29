@@ -45,7 +45,7 @@ const BannerSlider = () => {
                                         animate={{
                                             scale: 1,
                                             opacity: 1,
-                                            transition: { delay: 1, duration: 0.15, ease: 'easeIn' }
+                                            transition: { delay: 0.2, duration: 0.15, ease: 'easeIn' }
                                         }}
                                         className="text-center px-4 drop-shadow-2xl relative z-[1]">
                                         <h2 className="text-5xl md:text-7xl text-white text-wrap md:w-[80%] mx-auto">{item.title}</h2>

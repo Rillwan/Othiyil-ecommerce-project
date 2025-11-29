@@ -82,7 +82,7 @@ const AddCategory = ({ FetchData }) => {
                                             </div>
                                             <form className="mt-2 w-full" onSubmit={HandleSubmit}>
                                                 {/* IMAGE  */}
-                                                <div className="flex flex-col gap-4 items-center justify-center w-full h-full">
+                                                {/* <div className="flex flex-col gap-4 items-center justify-center w-full h-full">
                                                     {
                                                         image?.file && (
                                                             <div className='flex justify-center flex-wrap gap-4'>
@@ -107,7 +107,7 @@ const AddCategory = ({ FetchData }) => {
                                                             onChange={(e) => handleSetImage(e.target.files[0])}
                                                             id="dropzone-file" type="file" className="hidden" />
                                                     </label>
-                                                </div>
+                                                </div> */}
                                                 {/* INPUTS  */}
                                                 <div className='mt-4 grid gap-4'>
                                                     {/* NAME */}

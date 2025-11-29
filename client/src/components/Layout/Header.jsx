@@ -38,11 +38,11 @@ const MobileMenuBar = ({ category, setActiveCategory, activeCategory, HandleTogg
                                 }
                             >
                                 <div className="flex mt-1 items-center gap-2 py-2 px-4 w-full text-start rounded-xl transition-all hover:bg-white hover:shadow-sm">
-                                    <img className="w-[35px] aspect-square bg-white object-cover rounded-lg"
-                                        src={`${ApiURL}/image/100/${cat?.image}`} alt="image" />
+                                    {/* <img className="w-[35px] aspect-square bg-white object-cover rounded-lg"
+                                        src={`${ApiURL}/image/100/${cat?.image}`} alt="image" /> */}
                                     <div className="overflow-hidden">
                                         <p>{cat?.name}</p>
-                                        <p className="text-[12px] text-gray-600 text-nowrap">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem aut nemo aliquid quidem earum incidunt voluptatum dolorum, distinctio amet enim!</p>
+                                        {/* <p className="text-[12px] text-gray-600 text-nowrap">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem aut nemo aliquid quidem earum incidunt voluptatum dolorum, distinctio amet enim!</p> */}
                                     </div>
                                     <div className="ml-2">
                                         <FaAngleDown />
@@ -110,12 +110,12 @@ const Header = () => {
                                             {
                                                 category?.map((item, i) => (
                                                     <div key={i} className="relative group" style={{ '--subcategory-height': `${(item?.SubCategories?.length || 0) * 59 + 4}px` }}>
-                                                        <div className="flex items-center gap-2 py-2 px-4 w-full text-start rounded-xl transition-all hover:bg-white hover:shadow-sm">
-                                                            <img className="w-[35px] aspect-square bg-white object-cover rounded-lg"
-                                                                src={`${ApiURL}/image/100/${item?.image}`} alt="image" />
+                                                        <div className="flex items-center gap-2 py-3 px-5 w-full text-start rounded-xl transition-all hover:bg-white hover:shadow-sm">
+                                                            {/* <img className="w-[35px] aspect-square bg-white object-cover rounded-lg"
+                                                                src={`${ApiURL}/image/100/${item?.image}`} alt="image" /> */}
                                                             <div className="">
                                                                 <p>{item?.name}</p>
-                                                                <p className="text-[12px] text-gray-600 text-nowrap overflow-hidden w-[170px]">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem aut nemo aliquid quidem earum incidunt voluptatum dolorum, distinctio amet enim!</p>
+                                                                {/* <p className="text-[12px] text-gray-600 text-nowrap overflow-hidden w-[170px]">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem aut nemo aliquid quidem earum incidunt voluptatum dolorum, distinctio amet enim!</p> */}
                                                             </div>
                                                         </div>
                                                         <div className={`bg-gray-100 px-3 transition-all h-0 overflow-hidden group-hover:mt-1 group-hover:h-[var(--subcategory-height)] group-hover:py-1 grid gap-1`}>

@@ -9,7 +9,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import { CiVideoOn } from "react-icons/ci";
 
-const SubCategory = ({ Item }) => {
+const SubCategory = ({ Item, Refresh }) => {
     const [open, setOpen] = useState(false);
     const [Image, setImage] = useState('');
     const [subCategory, setSubCategory] = useState({
@@ -41,8 +41,9 @@ const SubCategory = ({ Item }) => {
             setSubCategory('');
             setImage({ file: null, previewURL: null });
             // Reload Window
-            window.location.reload();
-            // GetCategoryDetailsAPI({ token: token });
+            // window.location.reload();
+            // setOpen(false)
+            Refresh(token);
         } else {
             toast.error("Please fill");
         }
@@ -52,6 +53,7 @@ const SubCategory = ({ Item }) => {
     const OpenDeleteDialog = async ({ id }) => {
         if (window.confirm("Are you sure to delete this sub-category?")) {
             await DeleteSubCategoryAPI({ id, token: token });
+            Refresh(token);
         } else {
             return;
         }

@@ -23,13 +23,21 @@ const HomePage = () => {
         if (category?.length > 0) {
             category?.map((item) => {
                 if (item?.active) {
-                    activeCategory.push(item)
-                    setActiveCategory([...activeCategory])
+                    // Only One active category
+                    const select = item?.SubCategories?.find((sub)=>{
+                        return sub?.video
+                    })
+                    if(!select) return;
+                    activeCategory.push({...select,category:item?.name, category_slug:item?.slug});
+                    setActiveCategory([...activeCategory]) 
                 }
             })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category])
+
+    // console.log(activeCategory);   
+
 
     return (
         <div className="bg-white">
@@ -41,11 +49,11 @@ const HomePage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-wrap">
                         <div className="flex flex-col gap-2 cursor-pointer">
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[450px]  transition-all"
-                                to={`/category/${videos[0]?.slug}`}
+                                to={`/category/${activeCategory[0]?.category_slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
-                                        src={`${videos[0]?.video && (`${ApiURL}/image/video/:100/${videos[0]?.video}`)}`}
+                                        src={`${activeCategory[0]?.video && (`${ApiURL}/image/video/:100/${activeCategory[0]?.video}`)}`}
                                         // controls
                                         autoPlay
                                         muted
@@ -64,18 +72,18 @@ const HomePage = () => {
                                         }}
                                         className="p-6 text-white"
                                     >
-                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{videos[0]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{videos[0]?.category?.name}</p>
+                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[0]?.name}</h3>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[0]?.category}</p>
                                     </motion.div>
                                 </div>
                             </Link>
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[600px]"
-                                to={`/category/${videos[2]?.slug}`}
+                                to={`/category/${activeCategory[2]?.category_slug}`}
                             >
                                 <div
                                     className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
-                                        src={`${videos[2]?.video && (`${ApiURL}/image/video/:100/${videos[2]?.video}`)}`}
+                                        src={`${activeCategory[2]?.video && (`${ApiURL}/image/video/:100/${activeCategory[2]?.video}`)}`}
                                         // controls
                                         autoPlay
                                         muted
@@ -94,19 +102,19 @@ const HomePage = () => {
                                         }}
                                         className="p-6 text-white"
                                     >
-                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{videos[2]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{videos[2]?.category?.name}</p>
+                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[2]?.name}</h3>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[2]?.category}</p>
                                     </motion.div>
                                 </div>
                             </Link>
                         </div>
                         <div className="flex flex-col gap-2">
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[600px]"
-                                to={`/category/${videos[1]?.slug}`}
+                                to={`/category/${activeCategory[1]?.category_slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
-                                        src={`${videos[1]?.video && (`${ApiURL}/image/video/:100/${videos[1]?.video}`)}`}
+                                        src={`${activeCategory[1]?.video && (`${ApiURL}/image/video/:100/${activeCategory[1]?.video}`)}`}
                                         // controls
                                         autoPlay
                                         muted
@@ -125,17 +133,17 @@ const HomePage = () => {
                                         }}
                                         className="p-6 text-white"
                                     >
-                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{videos[1]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{videos[1]?.category?.name}</p>
+                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[1]?.name}</h3>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[1]?.category}</p>
                                     </motion.div>
                                 </div>
                             </Link>
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[450px] "
-                                to={`/category/${videos[4]?.slug}`}
+                                to={`/category/${activeCategory[4]?.category_slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
-                                        src={`${videos[4]?.video && (`${ApiURL}/image/video/:100/${videos[4]?.video}`)}`}
+                                        src={`${activeCategory[4]?.video && (`${ApiURL}/image/video/:100/${activeCategory[4]?.video}`)}`}
                                         // controls
                                         autoPlay
                                         muted
@@ -154,8 +162,8 @@ const HomePage = () => {
                                         }}
                                         className="p-6 text-white"
                                     >
-                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{videos[4]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{videos[4]?.category?.name}</p>
+                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[4]?.name}</h3>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[4]?.category}</p>
                                     </motion.div>
                                 </div>
                             </Link>
@@ -174,15 +182,16 @@ const HomePage = () => {
                             <div className="overflow-hidden">
                                 <motion.p
                                     initial={{
-                                        x: 100,
+                                        x: -150,
                                         opacity: 0,
                                     }}
                                     whileInView={{
                                         x: 0,
                                         opacity: 1,
                                         transition: {
-                                            type: "spring",
-                                            duration: 1,
+                                            type: "easeIn",
+                                            duration: 0.8,
+                                            delay: 0.2
                                         }
                                     }}
                                     className="mt-4 relative text-gray-600 text-[15px]">
@@ -204,7 +213,7 @@ const HomePage = () => {
                                 </motion.div>
                             </Link>
                         </div>
-                        <div className="">
+                        <div className="overflow-hidden">
                             <ScrollingCard Images={AboutData?.images} />
                         </div>
                     </div>
@@ -310,7 +319,7 @@ const HomePage = () => {
                             ClientImages?.map((item, index) => (
                                 <motion.div
                                     whileInView={{
-                                        rotateY: [0, 180],
+                                        rotateY: [180, 0],
                                         transition: {
                                             delay: 0.1 * index,
                                             type: "spring",

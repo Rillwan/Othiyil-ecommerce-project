@@ -38,15 +38,16 @@ const About = () => {
                             <div className="overflow-hidden">
                                 <motion.p
                                     initial={{
-                                        x: 100,
+                                        x: -150,
                                         opacity: 0,
                                     }}
                                     whileInView={{
                                         x: 0,
                                         opacity: 1,
                                         transition: {
-                                            type: "spring",
-                                            duration: 1,
+                                            type: "easeIn",
+                                            duration: 0.8,
+                                            delay: 0.2
                                         }
                                     }}
                                     className="mt-4 relative text-gray-600 text-[15px]">

@@ -17,8 +17,8 @@ const AdminLayout = () => {
             </div>
             <div className="flex">
                 {/* MENU  */}
-                <div className="w-fit xl:w-[20%] min-h-screen relative">
-                    <div className={`absolute left-0 w-[250px] top-0 h-full z-50 transform transition-transform duration-300 xl:relative xl:translate-x-0 ${MenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="w-fit xl:w-[15%] min-h-screen relative">
+                    <div className={`absolute left-0 w-[250px] lg:w-full top-0 h-full z-50 transform transition-transform duration-300 xl:relative xl:translate-x-0 ${MenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                         <div className="p-4 bg-gray-200 h-full">
                             <div className="mt-10">
                                 <img className="mx-auto p-2 w-[80px] h-[80px] rounded-full bg-white overflow-hidden"
@@ -58,7 +58,7 @@ const AdminLayout = () => {
                         </div>
                     </div>
                 </div>
-                <div className="w-full xl:w-[80%] min-h-screen p-4">
+                <div className="w-full xl:w-[85%] min-h-screen p-4">
                     <Outlet />
                 </div>
             </div>
