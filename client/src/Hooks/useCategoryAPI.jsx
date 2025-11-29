@@ -312,6 +312,35 @@ const useCategoryAPI = () => {
         }
     }
 
+    // ADMIN - DELETE VIDEO FROM SUB-CATEGORY
+    const DeleteVideoAPI = async ({ token, id }) => {
+        try {
+            if (!id || !token) {
+                return;
+            }
+            // API REQUEST
+            await axios.delete(`${ApiURL}/v1/category/delete-video-by-subcategory/${id}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                },
+            ).then((res) => {
+                if (res?.data?.success) {
+                    toast.success(res?.data?.message);
+                }
+            }).catch((err) => {
+                if (err.response) {
+                    toast.error(err?.response?.data?.message);
+                } else {
+                    toast.error(err?.message);
+                }
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return {
         CreateCategoryAPI,
         Categories, setCategories,
@@ -324,6 +353,7 @@ const useCategoryAPI = () => {
         UploadVideoAPI,
         SubCategoryName,
         GetSubCategoryNameAPI, Progress,
+        DeleteVideoAPI,
     }
 }
 

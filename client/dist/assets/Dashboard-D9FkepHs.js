@@ -1,1 +1,0 @@
-import{j as s}from"./index-d69wPcmL.js";const r=()=>s.jsx("div",{className:"Dashboard",children:s.jsx("div",{className:"bg-gray-200 rounded-xl p-4",children:"Dashboard....coming soon"})});export{r as default};

@@ -4,7 +4,10 @@ import ProductModel from "../models/ProductModel.js";
 import SubCategoryModel from "../models/SubCategoryModel.js";
 import VideoModel from "../models/VideoModel.js";
 import fs from "fs";
-import { FindImageUploadDirectory } from "../config/storage.js";
+import {
+  FindImageUploadDirectory,
+  FindVideoUploadDirectory,
+} from "../config/storage.js";
 
 // CREATE CATEGORY CONTROLLER
 export const CreateCategoryController = async (req, res) => {
@@ -314,6 +317,78 @@ export const DeleteSubCategoryController = async (req, res) => {
     return res.status(500).send({
       success: false,
       message: "Error in Deleting Sub-Category",
+      error: error.message,
+    });
+  }
+};
+
+export const DeleteVideoBySubCategoryController = async (req, res) => {
+  try {
+    const { id } = req?.params;
+    // EXISTING SUB-CATEGORY PRODUCTS
+    if (!id) {
+      return res.status(400).send({
+        success: false,
+        message: "Sub-Category ID is required",
+      });
+    }
+    // check existing sub-category
+    const subCategory = await SubCategoryModel.findById(id);
+    if (!subCategory) {
+      return res.status(404).send({
+        success: false,
+        message: "Sub-Category not found",
+      });
+    }
+    // finally delete video
+    if (subCategory) {
+      // file delete from multer if video exist
+      if (subCategory?.video) {
+        const filePath = FindVideoUploadDirectory(subCategory?.video);
+        // Check if the file exists
+        if (fs.existsSync(filePath)) {
+          // Delete the file
+          fs.unlink(filePath, async (err) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).send("Error deleting file.");
+            }
+            // CLEAR VIDEO FIELD IN SUB-CATEGORY
+            await SubCategoryModel.findByIdAndUpdate(id, {
+              $unset: { video: "" },
+            });
+            return res.status(200).send({
+              success: true,
+              message: "Sub-Category Video Deleted Successfully",
+            });
+          });
+        } else {
+          await SubCategoryModel.findByIdAndUpdate(id, {
+            $unset: { video: "" },
+          });
+          return res.status(404).send({
+            success: false,
+            message:
+              "File not found, but sub-category video filename will be deleted",
+          });
+        }
+      } else {
+        await SubCategoryModel.findByIdAndUpdate(id, { $unset: { video: "" } });
+        return res.status(200).send({
+          success: true,
+          message: "Sub-Category video filename deleted successfully",
+        });
+      }
+    } else {
+      return res.status(400).send({
+        success: false,
+        message: "Cannot delete sub-category with existing video",
+      });
+    }
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error in Deleting Video By Sub-Category",
       error: error.message,
     });
   }

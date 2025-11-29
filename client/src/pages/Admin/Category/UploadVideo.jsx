@@ -10,7 +10,7 @@ const UploadVideo = () => {
   const [video, setVideo] = useState('');
   const params = useParams();
   const { token } = useSelector((state) => state.auth);
-  const { UploadVideoAPI, GetSubCategoryNameAPI, SubCategoryName, Progress } = useCategoryAPI();
+  const { UploadVideoAPI, GetSubCategoryNameAPI, SubCategoryName, Progress, DeleteVideoAPI } = useCategoryAPI();
 
   // GET RENDER
   useSingleEffect(async () => {
@@ -25,9 +25,19 @@ const UploadVideo = () => {
     if (video && token && params?.id) {
       await UploadVideoAPI({ video, token, id: params.id });
       // reload window
-      window.location.reload();
+      await GetSubCategoryNameAPI({ token: token, id: params.id });
+      // window.location.reload();
     } else {
       toast.error("Please fill");
+    }
+  }
+
+  const DeleteVideo = async ({ token, id }) => {
+    if (token && id) {
+      await DeleteVideoAPI({ token: token, id: params.id });
+      await GetSubCategoryNameAPI({ token: token, id: params.id });
+    } else {
+      return toast.error("Token missing");
     }
   }
 
@@ -46,6 +56,9 @@ const UploadVideo = () => {
             <source src={`${ApiURL}/image/video/:100/${SubCategoryName?.video}`} type="video/mp4" />
             Your browser does not support HTML video.
           </video>
+          <div>
+            <button onClick={() => DeleteVideo({ token, id: params?.id })} className="btn btn-danger mt-3 px-4 py-2 rounded-xl bg-red-200 text-red-600">Delete Video</button>
+          </div>
         </div>
       ) : (
         <div>

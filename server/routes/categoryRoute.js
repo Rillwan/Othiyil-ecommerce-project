@@ -8,6 +8,7 @@ import {
         CreateSubCategoryController, 
         DeleteCategoryController,
         DeleteSubCategoryController,
+        DeleteVideoBySubCategoryController,
         GetCategoriesByNameController,
         getCategoryController, 
         GetSubCategoryNameController, 
@@ -38,6 +39,9 @@ router.delete("/delete/:id", requireAdminLogin, DeleteCategoryController);
 
 // ADMIN - DELETE SUB-CATEGORY
 router.delete("/delete/sub-category/:id", requireAdminLogin, DeleteSubCategoryController);
+
+// ADMIN - DELETE VIDEO BY SUB-CATEGORY
+router.delete("/delete-video-by-subcategory/:id", requireAdminLogin, DeleteVideoBySubCategoryController);
 
 // ADMIN - UPDATE CATEGORY
 router.put("/update/:id", requireAdminLogin, Upload.single("image"), FileErrorHandler, UpdateCategoryController);

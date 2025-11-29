@@ -106,3 +106,13 @@ export const FindImageUploadDirectory = (filename) => {
   const filePath = path.join(ImageDirectory(), filename);
   return filePath;
 };
+
+// Set Videos Folder Path
+const VideoDirectory = () => {
+  const uploadDirectoryPath = path.join(UPLOAD_ROOT, "videos");
+  return uploadDirectoryPath;
+};
+export const FindVideoUploadDirectory = (filename) => {
+  const filePath = path.join(VideoDirectory(), filename);
+  return filePath;
+};
