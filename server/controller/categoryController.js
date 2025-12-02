@@ -160,6 +160,27 @@ export const AdminCategoryController = async (req, res) => {
   }
 };
 
+// GET SUBCATEGORY DETAILS - ADMIN
+export const GetSubCategoriesController = async (req, res) => {
+  try {
+    const subcategories = await SubCategoryModel.find({}).populate(
+      "category",
+      "name _id"
+    );
+    return res.status(200).send({
+      success: true,
+      message: "Subcategories fetched successfully",
+      result: subcategories,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error in fetching categories",
+      error: error.message,
+    });
+  }
+};
+
 // DELETE CATEGORY CONTROLLER
 export const DeleteCategoryController = async (req, res) => {
   try {
@@ -394,15 +415,15 @@ export const DeleteVideoBySubCategoryController = async (req, res) => {
   }
 };
 
-// ACTIVE STATUS UPDATE CATEGORY CONTROLLER
-export const ActiveCategoryController = async (req, res) => {
+// ACTIVE STATUS UPDATE SUBCATEGORY CONTROLLER
+export const ActiveSubcategoryController = async (req, res) => {
   try {
     const { id } = req.params;
     const { active } = req.body;
     if (!id) {
       return res.status(400).send({
         success: false,
-        message: "Category ID is required",
+        message: "SubCategory ID is required",
       });
     } else if (!active) {
       return res.status(400).send({
@@ -410,25 +431,25 @@ export const ActiveCategoryController = async (req, res) => {
         message: "Active status is required",
       });
     }
-    const category = await CategoryModel.findByIdAndUpdate(
+    const subcategory = await SubCategoryModel.findByIdAndUpdate(
       id,
       { active: active },
       { new: true }
     );
-    if (!category) {
+    if (!subcategory) {
       return res.status(404).send({
         success: false,
-        message: "Category not found",
+        message: "SubCategory not found",
       });
     }
     return res.status(200).send({
       success: true,
-      message: "Category status updated successfully",
+      message: "SubCategory status updated successfully",
     });
   } catch (error) {
     return res.status(500).send({
       success: false,
-      message: "Error in fetching active status categories",
+      message: "Error in fetching active status subcategories",
     });
   }
 };

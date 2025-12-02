@@ -10,6 +10,8 @@ const useCategoryAPI = () => {
         upload: false,
         value: 0,
     });
+    const [PageSetupData, setPageSetupData] = useState({});
+    const [subcategories, setSubcategories] = useState([]);
 
     // ADMIN - CREATE CATEGORY
     const CreateCategoryAPI = async ({ category, image, token }) => {
@@ -74,8 +76,8 @@ const useCategoryAPI = () => {
         }
     }
 
-    // ADMIN - UPDATE ACTIVE CATEGORY 
-    const UpdateActiveCategoryAPI = async ({ id, token, active }) => {
+    // ADMIN - UPDATE ACTIVE SUBCATEGORY 
+    const UpdateActiveSubcategoryAPI = async ({ id, token, active }) => {
         try {
             if (!id && !token && active) {
                 return;
@@ -83,7 +85,7 @@ const useCategoryAPI = () => {
             const Form = new FormData();
             Form.append('active', active);
             // API REQUEST
-            await axios.put(`${ApiURL}/v1/category/active/${id}`,
+            await axios.put(`${ApiURL}/v1/category/active/subcategory/${id}`,
                 Form,
                 {
                     headers: {
@@ -341,6 +343,65 @@ const useCategoryAPI = () => {
         }
     }
 
+    // ADMIN - PAGE SETUP - GET DATA
+    const GetPageSetupDataAPI = async ({ token }) => {
+        try {
+            if (!token) {
+                return;
+            }
+            // API REQUEST
+            await axios.get(`${ApiURL}/v1/page-setup/data`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                },
+            ).then((res) => {
+                if (res?.data?.success) {
+                    setPageSetupData(res?.data?.result);
+                }
+            }).catch((err) => {
+                if (err.response) {
+                    toast.error(err?.response?.data?.message);
+                } else {
+                    toast.error(err?.message);
+                }
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // ADMIN - GET SUB-CATEGORIES
+    const GetSubCategoriesAPI = async ({ token }) => {
+        try {
+            if (!token) {
+                return;
+            }
+            // API REQUEST
+            await axios.get(`${ApiURL}/v1/category/admin/subcategories`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                },
+            ).then((res) => {
+                if (res?.data?.success) {
+                    setSubcategories(res?.data?.result);
+                }
+            }).catch((err) => {
+                if (err.response) {
+                    toast.error(err?.response?.data?.message);
+                } else {
+                    toast.error(err?.message);
+                }
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // RETURN ALL API FUNCTION AND STATES
     return {
         CreateCategoryAPI,
         Categories, setCategories,
@@ -349,11 +410,12 @@ const useCategoryAPI = () => {
         DeleteCategoryAPI,
         DeleteSubCategoryAPI,
         UpdateCategoryAPI,
-        UpdateActiveCategoryAPI,
+        UpdateActiveSubcategoryAPI,
         UploadVideoAPI,
         SubCategoryName,
         GetSubCategoryNameAPI, Progress,
         DeleteVideoAPI,
+        GetPageSetupDataAPI, PageSetupData, subcategories, GetSubCategoriesAPI,
     }
 }
 

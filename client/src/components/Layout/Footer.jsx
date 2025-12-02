@@ -2,34 +2,11 @@ import { Link } from "react-router-dom"
 import { GoArrowUpRight } from "react-icons/go";
 import { useSelector } from 'react-redux';
 import ApiURL from './../../Hooks/API/API';
-import { useEffect, useState } from "react";
 import Logo from "../../assets/logo.png"
 import CustomImage from "../SEO/CustomImage";
 
 const Footer = () => {
-    const [activeCategory, setActiveCategory] = useState([]);
-    const { category } = useSelector((state) => state.home);
-
-    useEffect(() => {
-        if (category?.length > 0) {
-            category?.map((item) => {
-                if (item?.active) {
-                    if (item?.SubCategories && item?.SubCategories?.length > 0) {
-                        item?.SubCategories?.map((data) => {
-                            if (data?.image) {
-                                activeCategory.push(data)
-                                setActiveCategory([...activeCategory]);
-                            }
-                        })
-                    }
-                }
-            })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [category])
-
-    // console.log(activeCategory);
-
+    const { activeCategory } = useSelector((state) => state.home);
 
     return (
         <footer className="Footer mt-20">

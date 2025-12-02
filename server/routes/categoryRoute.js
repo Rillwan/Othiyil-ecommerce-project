@@ -1,6 +1,6 @@
 import express from "express";
 import {
-        ActiveCategoryController,
+        ActiveSubcategoryController,
         AdminCategoryController,
         CategoryDetailsController,
         CategoryProductsSearchController,
@@ -11,6 +11,7 @@ import {
         DeleteVideoBySubCategoryController,
         GetCategoriesByNameController,
         getCategoryController, 
+        GetSubCategoriesController, 
         GetSubCategoryNameController, 
         UpdateCategoryController, 
         UpdateCategoryImageController,
@@ -37,6 +38,12 @@ router.get("/admin/categories", AdminCategoryController);
 // ADMIN - DELETE CATEGORY
 router.delete("/delete/:id", requireAdminLogin, DeleteCategoryController);
 
+// ADMIN - GET CATEGORY 
+router.get("/admin/categories", AdminCategoryController);
+
+// ADMIN - GET SUB-CATEGORIES
+router.get("/admin/subcategories", requireAdminLogin, GetSubCategoriesController);
+
 // ADMIN - DELETE SUB-CATEGORY
 router.delete("/delete/sub-category/:id", requireAdminLogin, DeleteSubCategoryController);
 
@@ -46,8 +53,8 @@ router.delete("/delete-video-by-subcategory/:id", requireAdminLogin, DeleteVideo
 // ADMIN - UPDATE CATEGORY
 router.put("/update/:id", requireAdminLogin, Upload.single("image"), FileErrorHandler, UpdateCategoryController);
 
-// ADMIN - ACTIVE UPDATE CATEGORY
-router.put("/active/:id", requireAdminLogin, Upload.none(), ActiveCategoryController);
+// ADMIN - ACTIVE UPDATE SUBCATEGORY
+router.put("/active/subcategory/:id", requireAdminLogin, Upload.none(), ActiveSubcategoryController);
 
 // ADMIN - CREATE CATEGORY
 router.put("/admin/subcategory/upload-video/:id", requireAdminLogin, UploadVideo.single("video"), FileErrorHandler, UploadVideoBySubCategoryController);

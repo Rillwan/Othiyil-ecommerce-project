@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   category: [],
   products: [],
   videos: [],
+  activeCategory:[],
 };
 
 const homeSlice = createSlice({
@@ -14,10 +15,11 @@ const homeSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setHomeData: (state, action) => {
-      const { category, products } = action.payload;
+      const { category, products, activeCategory } = action.payload;
       state.category = category;
       state.products = products;
       state.videos = action.payload.videos;
+      state.activeCategory = activeCategory;
     },
   },
 });

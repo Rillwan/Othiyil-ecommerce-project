@@ -28,6 +28,7 @@ const UploadVideo = lazy(() => import("./pages/Admin/Category/UploadVideo"));
 const Account = lazy(() => import("./pages/Admin/Account/Account"));
 const PageSetup = lazy(() => import("./pages/Admin/PageSetup/PageSetup"));
 const Message = lazy(() => import("./pages/Admin/Message/Message"));
+const Reels = lazy(() => import("./pages/Admin/Reels/Reels"));
 
 // OTHER PAGES
 const InvalidPage = lazy(() => import("./pages/InvalidPage/InvalidPage"));
@@ -87,6 +88,7 @@ function App() {
                 <Route path="page-setup" element={<PageSetup />} />
                 <Route path="account" element={<Account />} />
                 <Route path="message" element={<Message />} />
+                <Route path="reels" element={<Reels />} />
               </Route>
 
               <Route path="*" element={<InvalidPage />} />

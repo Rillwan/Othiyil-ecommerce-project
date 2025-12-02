@@ -7,29 +7,29 @@ import { IoMdAdd } from "react-icons/io";
 
 const PageSetup = () => {
     const { token } = useSelector((state) => state.auth);
-    const { Categories, GetCategoriesAPI, UpdateActiveCategoryAPI } = useCategoryAPI();
+    const { Categories, GetCategoriesAPI, UpdateActiveSubcategoryAPI, subcategories, GetSubCategoriesAPI } = useCategoryAPI();
 
     // GET CATEGORIES RENDER
     useSingleEffect(async () => {
         if (token) {
-            await GetCategoriesAPI({ token: token });
+            await GetSubCategoriesAPI({ token: token });
         }
     })
 
 
     // Active Status Category
-    const HandleActiveCategory = async (e, id) => {
+    const HandleActiveSubcategory = async (e, id) => {
         e.preventDefault();
         if (!token) {
             return
         }
         if (id) {
-            await UpdateActiveCategoryAPI({ id, token, active: e.target.checked });
+            await UpdateActiveSubcategoryAPI({ id, token, active: e.target.checked });
         }
-        await GetCategoriesAPI({ token });
+        await GetSubCategoriesAPI({ token });
     };
 
-    // console.log(Categories);
+    // console.log(subcategories);
 
     return (
         <div className="Dashboard">
@@ -69,17 +69,24 @@ const PageSetup = () => {
                     <p className="text-[12px] text-gray-600 ">maximum 4 category only visible</p>
                     <div className="grid md:grid-cols-3 gap-2 mt-3 ">
                         {
-                            Categories?.map((item, index) => (
+                            subcategories?.map((item, index) => (
                                 <div className="p-2 rounded-xl bg-white flex items-center justify-between" key={index}>
                                     <div className="flex gap-2 items-center">
                                         <img src={`${ApiURL}/image/200/${item?.image}`}
                                             className="rounded-md aspect-square object-cover w-[40px] bg-gray-200" alt="" />
-                                        <p className="text-sm">{item?.name}</p>
+                                        <div>
+                                            <p className="text-sm">{item?.name}</p>
+                                            <p className="text-[11px] text-gray-500">{item?.category?.name}</p>
+                                        </div>
                                     </div>
-                                    <input type="checkbox"
-                                        checked={item?.active}
-                                        onChange={(e) => HandleActiveCategory(e, item?._id)}
-                                        className="w-[20px] h-[20px] mr-4 rounded-md" />
+                                    <div className="flex items-center gap-3">
+                                        {!item?.video ? (<span className="text-[10px] text-wrap text-red-400 ml-auto block text-end">No video uploaded</span>) :
+                                            (<span className="text-[10px] text-wrap text-green-700 ml-auto block text-end">Video available</span>)}
+                                        <input type="checkbox"
+                                            checked={item?.active}
+                                            onChange={(e) => HandleActiveSubcategory(e, item?._id)}
+                                            className="w-[20px] h-[20px] mr-4 rounded-md" />
+                                    </div>
                                 </div>
                             ))
                         }

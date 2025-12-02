@@ -6,8 +6,6 @@ import { AboutData, HomeData } from "./HomeData";
 import { useSelector } from "react-redux";
 import ApiURL from "../../../Hooks/API/API";
 import BannerSlider from "./BannerSlider";
-import { TextLimit } from "../../../components/Optimized/TextLimit";
-import { useEffect, useState } from "react";
 import ClientImages from './ClientImages';
 import { motion } from 'framer-motion';
 import Counter from "../../../components/Counter/Counter";
@@ -16,28 +14,10 @@ import ProductCard from "../../../components/Cards/ProductCard";
 import ScrollingCard from "../../../components/Cards/ScrollingCard";
 
 const HomePage = () => {
-    const [activeCategory, setActiveCategory] = useState([]);
-    const { products, category, videos } = useSelector((state) => state.home);
-
-    useEffect(() => {
-        if (category?.length > 0) {
-            category?.map((item) => {
-                if (item?.active) {
-                    // Only One active category
-                    const select = item?.SubCategories?.find((sub)=>{
-                        return sub?.video
-                    })
-                    if(!select) return;
-                    activeCategory.push({...select,category:item?.name, category_slug:item?.slug});
-                    setActiveCategory([...activeCategory]) 
-                }
-            })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [category])
+    // const [activeCategory, setActiveCategory] = useState([]);
+    const { products, videos, activeCategory } = useSelector((state) => state.home);
 
     // console.log(activeCategory);   
-
 
     return (
         <div className="bg-white">
@@ -49,7 +29,7 @@ const HomePage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-wrap">
                         <div className="flex flex-col gap-2 cursor-pointer">
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[450px]  transition-all"
-                                to={`/category/${activeCategory[0]?.category_slug}`}
+                                to={`/category/${activeCategory[0]?.slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
@@ -73,12 +53,12 @@ const HomePage = () => {
                                         className="p-6 text-white"
                                     >
                                         <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[0]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[0]?.category}</p>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[0]?.category?.name}</p>
                                     </motion.div>
                                 </div>
                             </Link>
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[600px]"
-                                to={`/category/${activeCategory[2]?.category_slug}`}
+                                to={`/category/${activeCategory[2]?.slug}`}
                             >
                                 <div
                                     className="absolute top-0 w-full h-full left-0 z-[0]">
@@ -103,14 +83,14 @@ const HomePage = () => {
                                         className="p-6 text-white"
                                     >
                                         <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[2]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[2]?.category}</p>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[2]?.category?.name}</p>
                                     </motion.div>
                                 </div>
                             </Link>
                         </div>
                         <div className="flex flex-col gap-2">
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[600px]"
-                                to={`/category/${activeCategory[1]?.category_slug}`}
+                                to={`/category/${activeCategory[1]?.slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
@@ -134,16 +114,16 @@ const HomePage = () => {
                                         className="p-6 text-white"
                                     >
                                         <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[1]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[1]?.category}</p>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[1]?.category?.name}</p>
                                     </motion.div>
                                 </div>
                             </Link>
                             <Link className="bg-cover relative bg-center h-[400px] lg:h-[450px] "
-                                to={`/category/${activeCategory[4]?.category_slug}`}
+                                to={`/category/${activeCategory[3]?.slug}`}
                             >
                                 <div className="absolute top-0 w-full h-full left-0 z-[0]">
                                     <video
-                                        src={`${activeCategory[4]?.video && (`${ApiURL}/image/video/:100/${activeCategory[4]?.video}`)}`}
+                                        src={`${activeCategory[3]?.video && (`${ApiURL}/image/video/:100/${activeCategory[3]?.video}`)}`}
                                         // controls
                                         autoPlay
                                         muted
@@ -162,8 +142,8 @@ const HomePage = () => {
                                         }}
                                         className="p-6 text-white"
                                     >
-                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[4]?.name}</h3>
-                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[4]?.category}</p>
+                                        <h3 className="text-3xl tracking-[4px] font-light uppercase">{activeCategory[3]?.name}</h3>
+                                        <p className="opacity-80 text-[13px] font-thin uppercase tracking-[4px]">{activeCategory[3]?.category?.name}</p>
                                     </motion.div>
                                 </div>
                             </Link>

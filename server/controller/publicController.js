@@ -31,6 +31,11 @@ export const GetPublicHomeDataController = async (req, res) => {
         },
       },
     ]);
+    // Find active subcategories
+    const activeCategory = await SubCategoryModel.find({ active: true })
+      .select("-__v -createdAt -updatedAt")
+      .populate("category", "name")
+      .limit(4);
     // Find Videos by sub category
     const Videos = await SubCategoryModel.find({
       video: { $exists: true, $ne: "" },
@@ -52,6 +57,7 @@ export const GetPublicHomeDataController = async (req, res) => {
         category: categories,
         products: Products,
         videos: Videos,
+        activeCategory,
       },
     });
   } catch (error) {

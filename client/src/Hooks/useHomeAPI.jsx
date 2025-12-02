@@ -14,7 +14,14 @@ const useHomeAPI = () => {
             await axios.get(`${ApiURL}/public/home`,
             ).then((res) => {
                 if (res?.data?.success) {
-                    dispatch(setHomeData({ category: res?.data?.result?.category, products: res?.data?.result?.products, videos: res?.data?.result?.videos }));
+                    dispatch(
+                        setHomeData({
+                            category: res?.data?.result?.category,
+                            products: res?.data?.result?.products,
+                            videos: res?.data?.result?.videos,
+                            activeCategory: res?.data?.result?.activeCategory,
+                        })
+                    );
                 }
             }).catch((err) => {
                 if (err.response) {

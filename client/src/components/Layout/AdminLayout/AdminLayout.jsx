@@ -48,6 +48,9 @@ const AdminLayout = () => {
                                         <Link to={'/my-admin/page-setup'} onClick={() => setMenuOpen(false)} className="py-3 block w-full text-center rounded-xl bg-white">Page Setup</Link>
                                     </li>
                                     <li>
+                                        <Link to={'/my-admin/reels'} onClick={() => setMenuOpen(false)} className="py-3 block w-full text-center rounded-xl bg-white">Reels</Link>
+                                    </li>
+                                    <li>
                                         <Link to={'/my-admin/account'} onClick={() => setMenuOpen(false)} className="py-3 block w-full text-center rounded-xl bg-white">Account</Link>
                                     </li>
                                     <li>
