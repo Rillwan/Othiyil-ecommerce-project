@@ -49,7 +49,7 @@ const EditProduct = () => {
             name: '',
             description: '',
             category: '',
-            subCategory: '',
+            subCategory: [],
             brand: '',
             measurement: '',
             color: '',
@@ -79,8 +79,6 @@ const EditProduct = () => {
         //     ...images.slice(index + 1, images.length)
         // ]);
     }
-
-
 
     // console.log(ProductDetails);
 
@@ -160,8 +158,12 @@ const EditProduct = () => {
                                 <div className="">
                                     <p>Sub-Category</p>
                                     <div
-                                        className='px-4 py-2 bg-gray-200 rounded-xl disabled:bg-gray-100 border border-gray-300 w-full mt-2'>
-                                        {ProductDetails.subcategory?.name}
+                                        className='px-4 py-2 bg-gray-200 rounded-xl disabled:bg-gray-100 border border-gray-300 w-full mt-2 flex flex-wrap gap-2'>
+                                        {
+                                            ProductDetails?.subcategory?.map((sub,i)=>(
+                                                <span key={i} className="bg-white px-3 py-1 text-[13px] rounded-lg">{sub?.name}</span>
+                                            ))
+                                        }
                                     </div>
                                 </div>
                             </div>

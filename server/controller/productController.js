@@ -21,7 +21,8 @@ export const CreateProductController = async (req, res) => {
     const images = await req.files.map((element) => {
       return element.filename;
     });
-
+    // Parse subcategory
+    const parsedSubCategory = JSON.parse(subCategory);
     // validation
     switch (true) {
       case !name:
@@ -46,7 +47,7 @@ export const CreateProductController = async (req, res) => {
       name,
       slug: slugify(name),
       category,
-      subcategory: subCategory,
+      subcategory: parsedSubCategory,
       description,
       brand,
       measurement,

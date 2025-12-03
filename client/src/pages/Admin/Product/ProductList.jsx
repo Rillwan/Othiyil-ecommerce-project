@@ -40,7 +40,7 @@ const ProductList = () => {
     }
 
     // console.log(ProductList);
-    
+
 
     return (
         <div className="ProductList p-4 rounded-xl">
@@ -70,7 +70,13 @@ const ProductList = () => {
                                             </div>
                                         </td>
                                         <td className="py-3 px-6 text-center">{item?.category?.name}</td>
-                                        <td className="py-3 px-6 text-center">{item?.subcategory?.name}</td>
+                                        <td className="py-3 px-6 text-center">
+                                            {item?.subcategory?.map((subCat, index) => (
+                                                <span key={index} className="inline-block bg-gray-300 text-gray-800 text-xs px-3 py-1 rounded-full mr-1">
+                                                    {subCat?.name}
+                                                </span>
+                                            ))}
+                                        </td>
                                         <td className="py-3 px-6 text-center flex gap-2 justify-center">
                                             <Link to={`/my-admin/edit-product/${item?._id}`} className="px-4 py-1 bg-blue-700 text-center text-white rounded-lg">Edit</Link>
                                             <button onClick={() => OpenDeleteDialog({ id: item._id })} className="px-4 py-1 bg-red-200 text-center text-red-700 rounded-lg">Delete</button>

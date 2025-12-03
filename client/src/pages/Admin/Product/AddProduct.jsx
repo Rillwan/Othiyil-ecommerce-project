@@ -43,7 +43,7 @@ const AddProduct = () => {
         name: '',
         description: '',
         category: '',
-        subCategory: '',
+        subCategory: [],
         brand: '',
         measurement: '',
         color: ''
@@ -83,7 +83,7 @@ const AddProduct = () => {
             name: '',
             description: '',
             category: '',
-            subCategory: '',
+            subCategory: [],
             brand: '',
             measurement: '',
             color:'',
@@ -96,7 +96,7 @@ const AddProduct = () => {
            name: '',
             description: '',
             category: '',
-            subCategory: '',
+            subCategory: [],
             brand: '',
             measurement: '',
             color:'',
@@ -206,7 +206,7 @@ const AddProduct = () => {
                                     placeholder="Product Name" required />
                             </div>
                             {/* CATEGORY */}
-                            <div className='grid md:grid-cols-2 gap-4'>
+                            <div className='grid gap-4'>
                                 <div className="">
                                     <label>Category</label>
                                     <Select
@@ -222,11 +222,12 @@ const AddProduct = () => {
                                     <label>Sub-Category</label>
                                     <Select
                                         options={SubCategoryOptions(product.category)?.subCategories?.map((opt) => ({ label: opt?.name, value: opt?._id }))}
-                                        onChange={(selectedOption) => setProduct({ ...product, subCategory: selectedOption.value })}
-                                        value={product?.subCategory && SubCategoryOptions(product.category)?.subCategories?.map((opt) => opt?._id === product?.subCategory && { label: opt?.name, value: opt?._id })}
+                                        onChange={(selectedOption) => setProduct({ ...product, subCategory: selectedOption })}
+                                        value={product.subCategory}
                                         placeholder='subcategory' 
                                         className='mt-2'
                                         styles={selectStyle}
+                                        isMulti
                                     />
                                 </div>
                             </div>

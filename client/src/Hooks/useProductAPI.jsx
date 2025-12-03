@@ -22,7 +22,7 @@ const useProductAPI = () => {
         name: '',
         description: '',
         category: '',
-        subcategory: '',
+        subcategory: [],
         brand: '',
         measurement: '',
         color: '',
@@ -152,7 +152,7 @@ const useProductAPI = () => {
             ProductData.append("description", product?.description);
             ProductData.append("brand", product?.brand);
             ProductData.append("category", product?.category);
-            ProductData.append("subCategory", product?.subCategory);
+            ProductData.append("subCategory", JSON.stringify(product?.subCategory?.map((sub) => sub?.value)));
             ProductData.append("measurement", product?.measurement);
             ProductData.append("color", product?.color);
             // images

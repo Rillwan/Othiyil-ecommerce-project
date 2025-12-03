@@ -15,11 +15,13 @@ const ProductSchema = new mongoose.Schema(
       ref: "category",
       required: true,
     },
-    subcategory: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "subcategory",
-      default: "",
-    },
+    subcategory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "subcategory",
+        default: "",
+      },
+    ],
     brand: {
       type: String,
       default: "",

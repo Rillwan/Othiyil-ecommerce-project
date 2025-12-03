@@ -103,7 +103,13 @@ const Product = () => {
                                 </div>
                                 <div className="">
                                     <p className="text-gray-500 font-medium text-[14px]">Product Type:</p>
-                                    <p className="font-medium mt-2">{Product?.subcategory?.name}</p>
+                                    <div className="font-medium mt-2 text-[14px]">
+                                        {
+                                            Product?.subcategory?.map((type, index) => (
+                                                <span key={index}>{type?.name}{Product?.subcategory?.length - 1 !== index ? ', ' : ''}</span>
+                                            ))
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 mt-6">
