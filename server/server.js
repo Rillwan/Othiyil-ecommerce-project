@@ -13,6 +13,7 @@ import productRoute from './routes/productRoute.js';
 import imageRoute from './routes/imageRoute.js';
 import messageRoute from './routes/messageRoute.js';
 import publicRoute from './routes/publicRoute.js';
+import sitemapRoute from './routes/sitemapRoute.js';
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use("/api/v1/product", productRoute);
 app.use("/api/image", imageRoute);
 app.use("/api/v1/message", messageRoute);
 app.use("/api/public", publicRoute);
+app.use('/', sitemapRoute);
 
 //route object
 const router = express.Router();
