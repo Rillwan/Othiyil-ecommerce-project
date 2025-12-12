@@ -15,6 +15,7 @@ import {
         GetSubCategoryNameController, 
         UpdateCategoryController, 
         UpdateCategoryImageController,
+        UpdateSubCategoryController,
         UploadVideoBySubCategoryController
 } from "../controller/categoryController.js";
 import { requireAdminLogin } from "../middleware/adminAuth.js";
@@ -52,6 +53,9 @@ router.delete("/delete-video-by-subcategory/:id", requireAdminLogin, DeleteVideo
 
 // ADMIN - UPDATE CATEGORY
 router.put("/update/:id", requireAdminLogin, Upload.single("image"), FileErrorHandler, UpdateCategoryController);
+
+// ADMIN - UPDATE SUB-CATEGORY
+router.put("/update-subcategory/:id", requireAdminLogin, Upload.single("image"), FileErrorHandler, UpdateSubCategoryController);
 
 // ADMIN - ACTIVE UPDATE SUBCATEGORY
 router.put("/active/subcategory/:id", requireAdminLogin, Upload.none(), ActiveSubcategoryController);

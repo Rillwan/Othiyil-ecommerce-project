@@ -8,8 +8,9 @@ import ApiURL from '../../../Hooks/API/API';
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import { CiVideoOn } from "react-icons/ci";
+import EditSubCategory from './EditSubCategory';
 
-const SubCategory = ({ Item, Refresh }) => {
+const SubCategory = ({ Item, Refresh, FetchData }) => {
     const [open, setOpen] = useState(false);
     const [Image, setImage] = useState('');
     const [subCategory, setSubCategory] = useState({
@@ -18,6 +19,8 @@ const SubCategory = ({ Item, Refresh }) => {
     });
     const { token } = useSelector((state) => state.auth);
     const { CreateSubCategoryAPI, GetCategoriesAPI, DeleteSubCategoryAPI } = useCategoryAPI();
+
+    let Fe
 
     // Handle Reset
     const HandleReset = () => {
@@ -96,13 +99,14 @@ const SubCategory = ({ Item, Refresh }) => {
                                                     {
                                                         Item?.subcategories?.map((item, i) => (
                                                             <li key={i} className='py-2 px-4 rounded-md bg-gray-200 '>
-                                                                <div className='flex gap-3 items-center'>
+                                                                <div className='flex gap-2 items-center'>
                                                                     <p className='font-medium'>{i + 1}</p>
                                                                     <img className='bg-gray-300 w-[35px] h-[35px] object-cover object-center rounded-md'
                                                                         src={`${ApiURL}/image/200/${item?.image}`} alt="" />
-                                                                    <p className=''>{item?.name}</p>
+                                                                    <p className='text-wrap text-[13px]'>{item?.name}</p>
                                                                     <div className='ml-auto cursor-pointer  flex gap-2 items-center'>
-                                                                        <Link to={`/my-admin/category/subcategory/upload-video/${item?._id}`} className='bg-indigo-500 text-white py-1 px-3 rounded-lg flex items-center gap-2'>
+                                                                        <EditSubCategory FetchData={FetchData} Data={item} />
+                                                                        <Link to={`/my-admin/category/subcategory/upload-video/${item?._id}`} className='bg-indigo-500 text-white text-[12px] py-1 px-3 rounded-lg flex items-center gap-2'>
                                                                             <CiVideoOn className='text-[25px] ' />Upload Video
                                                                         </Link>
                                                                         <AiFillDelete className='text-[35px] text-red-500 bg-red-200 py-1 px-2 rounded-lg' onClick={() => OpenDeleteDialog({ id: item?._id })} />

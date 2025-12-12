@@ -685,6 +685,83 @@ export const UpdateCategoryController = async (req, res) => {
   }
 };
 
+// UPDATE SUBCATEGORY CONTROLLER
+export const UpdateSubCategoryController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { subcategory } = req.body;
+    if (!id) {
+      return res.status(400).send({
+        success: false,
+        message: "Invalid request",
+      });
+    }
+    // SubCategory Exist
+    const subcategoryExist = await SubCategoryModel.findOne({
+      slug: slugify(subcategory),
+    });
+    // Existing SubCategory
+    if (subcategoryExist && subcategoryExist._id.toString() !== id) {
+      return res.status(403).send({
+        success: false,
+        message: "SubCategory already exists",
+      });
+    }
+    // Delete old image if new image is uploaded
+    const oldSubcategory = await SubCategoryModel.findById(id);
+    if (!oldSubcategory) {
+      return res.status(404).send({
+        success: false,
+        message: "SubCategory not found",
+      });
+    }
+    const filename = req?.file?.filename;
+    if (filename && oldSubcategory?.image) {
+      const filePath = FindImageUploadDirectory(oldSubcategory.image);
+      // Check if the file exists
+      if (fs.existsSync(filePath)) {
+        // Delete the file
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).send("Error deleting file.");
+          }
+        });
+      }
+    }
+    // Update
+    const SubCategory = await SubCategoryModel.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          name: subcategory,
+          slug: slugify(subcategory),
+          image: filename || oldSubcategory?.image || "",
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!SubCategory) {
+      return res.status(404).send({
+        success: false,
+        message: "SubCategory not found",
+      });
+    } else {
+      return res.status(200).send({
+        success: true,
+        message: "SubCategory updated successfully",
+      });
+    }
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error in updating SubCategory",
+    });
+  }
+};
+
 // CATEGORY PRODUCTS SEARCH CONTROLLER
 export const CategoryProductsSearchController = async (req, res) => {
   try {

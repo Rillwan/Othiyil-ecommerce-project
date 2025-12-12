@@ -236,6 +236,56 @@ const useCategoryAPI = () => {
         }
     }
 
+    // ADMIN - UPDATE SUB-CATEGORY
+    const UpdateSubCategoryAPI = async ({ id, subcategory, image, token }) => {
+        try {
+            setProgress({
+                upload: true,
+                value: 0,
+            })
+            if (!id || !subcategory || !token) {
+                return;
+            }
+            const categoryForm = new FormData();
+            categoryForm.append('subcategory', subcategory);
+            categoryForm.append('image', image);
+            // API REQUEST
+            await axios.put(`${ApiURL}/v1/category/update-subcategory/${id}`,
+                categoryForm,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                    onUploadProgress: (progressEvent) => {
+                        // Calculate upload percentage
+                        const percentComplete = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setProgress({
+                            upload: true,
+                            value: percentComplete,
+                        });
+                    },
+                },
+            ).then((res) => {
+                if (res?.data?.success) {
+                    toast.success(res?.data?.message);
+                }
+            }).catch((err) => {
+                if (err.response) {
+                    toast.error(err?.response?.data?.message);
+                } else {
+                    toast.error(err?.message);
+                }
+            })
+        } catch (error) {
+            console.error(error);
+        }
+        setProgress({
+            upload: false,
+            value: 0,
+        })
+    }
+
     // ADMIN - UPLOAD VIDEO FILE IN SUB-CATEGORY
     const UploadVideoAPI = async ({ video, token, id }) => {
         setProgress({
@@ -410,6 +460,7 @@ const useCategoryAPI = () => {
         DeleteCategoryAPI,
         DeleteSubCategoryAPI,
         UpdateCategoryAPI,
+        UpdateSubCategoryAPI,
         UpdateActiveSubcategoryAPI,
         UploadVideoAPI,
         SubCategoryName,

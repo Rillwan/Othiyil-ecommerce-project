@@ -6,13 +6,14 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useCategoryAPI from '../../../Hooks/useCategoryAPI';
 import ApiURL from '../../../Hooks/API/API';
+import { MdEdit } from "react-icons/md";
 
-const EditCategory = ({ FetchData, Data }) => {
+const EditSubCategory = ({ FetchData, Data }) => {
     const [open, setOpen] = useState(false);
     const [image, setImage] = useState({ file: null, previewURL: null });
     const [category, setCategory] = useState(Data?.name || '');
     const { token } = useSelector((state) => state.auth);
-    const { UpdateCategoryAPI, GetCategoriesAPI, Categories } = useCategoryAPI();
+    const { UpdateSubCategoryAPI, Progress } = useCategoryAPI();
 
     // image  uploader
     const handleSetImage = (file) => {
@@ -26,10 +27,9 @@ const EditCategory = ({ FetchData, Data }) => {
     const HandleSubmit = async (e) => {
         e.preventDefault();
         if (category && token && Data?._id) {
-            await UpdateCategoryAPI({ id: Data._id, category, image: image?.file, token: token });
+            await UpdateSubCategoryAPI({ id: Data._id, subcategory: category, image: image?.file, token: token });
             setCategory('');
             setImage(null);
-            await GetCategoriesAPI({ token: token });
             setOpen(false);
             FetchData();
         } else {
@@ -42,9 +42,9 @@ const EditCategory = ({ FetchData, Data }) => {
             <div className=''>
                 <button
                     onClick={() => setOpen(true)}
-                    className="rounded-xl ml-auto block bg-indigo-600 px-4 py-2 font-semibold text-gray-200 hover:bg-indigo-500"
+                    className="rounded-md ml-auto block border bg-green-100 px-2 py-2 font-semibold text-green-600 hover:bg-green-200"
                 >
-                    Edit
+                    <MdEdit />
                 </button>
                 <Dialog open={open} onClose={setOpen} className="relative z-10">
                     <DialogBackdrop
@@ -62,11 +62,21 @@ const EditCategory = ({ FetchData, Data }) => {
                                     <div className="">
                                         <div className="">
                                             <DialogTitle as="h3" className="text-lg font-semibold text-gray-900">
-                                                Update Category
+                                                Update Subcategory
                                             </DialogTitle>
                                             <div className='absolute top-0 right-0 p-4 cursor-pointer' onClick={() => setOpen(false)}>
                                                 <IoClose className='text-[30px]' />
                                             </div>
+                                            {/* PROGRESS BAR */}
+                                            {
+                                                Progress?.upload && (
+                                                    <div className='p-6 pt-4 pb-2 w-full'>
+                                                        <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                            <div className="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full transition-all" style={{ width: `${Progress?.value}%` }}>{Progress?.value}%</div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
                                             <form className="mt-2 w-full" onSubmit={HandleSubmit}>
                                                 {
                                                     /* IMAGE  */
@@ -116,7 +126,7 @@ const EditCategory = ({ FetchData, Data }) => {
                                                     </div>
                                                     <div className='flex gap-4'>
                                                         <button className='btn bg-black text-white px-4 py-2 rounded-xl w-full' type='submit'>
-                                                            Update Category
+                                                            Update Subcategory
                                                         </button>
                                                         <button className='btn btn-danger px-4 py-2 rounded-xl bg-red-200 text-red-600' type='reset'
                                                         // onClick={HandleReset}
@@ -129,17 +139,6 @@ const EditCategory = ({ FetchData, Data }) => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* PROGRESS BAR */}
-                                {/* <div className='p-6'>
-                                    <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div className="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full transition-all"
-                                            style={{ width: Progress?.value }}
-                                            style={{ width: '50%' }}
-                                        >
-                                            {Progress?.value}%
-                                        </div>
-                                    </div>
-                                </div> */}
                             </DialogPanel>
                         </div>
                     </div>
@@ -149,4 +148,4 @@ const EditCategory = ({ FetchData, Data }) => {
     )
 }
 
-export default EditCategory
+export default EditSubCategory

@@ -5,11 +5,14 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/store.js";
+import { HeadProvider } from 'react-head'
 
 createRoot(document.getElementById("root")).render(
+  <HeadProvider>
     <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
+  </HeadProvider>
 );

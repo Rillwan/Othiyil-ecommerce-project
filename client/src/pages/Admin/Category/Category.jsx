@@ -91,7 +91,7 @@ const Category = () => {
                                         <td className="py-3 px-6 text-center">{item?.productCount || 0}</td>
                                         <td className="py-3 px-6 text-center flex gap-2 justify-center">
                                             <div>
-                                                <SubCategory Item={item} Refresh={RefreshCategories} />
+                                                <SubCategory Item={item} FetchData={FetchData} Refresh={RefreshCategories} />
                                             </div>
                                             <EditCategory FetchData={FetchData} Data={item} />
                                             <button onClick={() => OpenDeleteDialog({ id: item?._id })} className="px-4 py-1 bg-red-200 text-center text-red-700 rounded-lg">Delete</button>

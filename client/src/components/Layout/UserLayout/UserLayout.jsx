@@ -3,6 +3,8 @@ import ScrollToTop from "../ScrollToTop";
 import Header from "./../Header";
 import Footer from "./../Footer";
 import { useEffect, useRef } from "react";
+import { Link as HeadLink } from 'react-head';
+import Favicon from '../../../assets/favicon.png';
 
 const UserLayout = () => {
   const boxRef = useRef(null);
@@ -14,17 +16,20 @@ const UserLayout = () => {
       boxRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [pathname]);
-  
-  return ( 
+
+  return (
     <div className="Layout">
-      <Header  />
-      <div className="Page fixed left-0 top-0  p-2 w-screen h-screen">
-        <div className="overflow-y-scroll w-full h-full rounded-[38px]" ref={boxRef}>
-          <div>
-            <Outlet />
+      <HeadLink rel="icon" type="image/png" sizes="32x32" href={Favicon} />
+      <div>
+        <Header />
+        <div className="Page fixed left-0 top-0  p-2 w-screen h-screen">
+          <div className="overflow-y-scroll w-full h-full rounded-[38px]" ref={boxRef}>
+            <div>
+              <Outlet />
+            </div>
+            <ScrollToTop />
+            <Footer />
           </div>
-           <ScrollToTop />
-          <Footer />
         </div>
       </div>
     </div>
